@@ -18,15 +18,15 @@ Route::get('/', function () {
 });
 
 Route::get('post/{post}', function ($post) {
-    $path = __DIR__."/../resources/posts/{$post}.html";
-    if(!file_exists($path)){
-//        ddd("file does not exists"); // dd stands for die and dump into the page useful for debug
+    $path = __DIR__ . "/../resources/posts/{$post}.html";
+    if (!file_exists($path)) {
+        ddd("file does not exists: ".$path); // dd stands for die and dump into the page useful for debug
 //        abort(404);
-        return redirect("/");
+//        return redirect("/");
     }
-    
+
     $postFile = file_get_contents($path);
-    return view('post',[
-        'post'=> $postFile
-        ]);
-});
+    return view('post', [
+    'post' => $postFile
+    ]);
+})->where("post", "[A-z_\-]+");
