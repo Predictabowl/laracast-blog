@@ -17,6 +17,16 @@ Route::get('/', function () {
     return view('posts');
 });
 
-Route::get('post', function () {
-    return view('post');
+Route::get('post/{post}', function ($post) {
+    $path = __DIR__."/../resources/posts/{$post}.html";
+    if(!file_exists($path)){
+//        ddd("file does not exists"); // dd stands for die and dump into the page useful for debug
+//        abort(404);
+        return redirect("/");
+    }
+    
+    $postFile = file_get_contents($path);
+    return view('post',[
+        'post'=> $postFile
+        ]);
 });
