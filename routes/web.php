@@ -20,13 +20,17 @@ Route::get('/', function () {
 Route::get('post/{post}', function ($post) {
     $path = __DIR__ . "/../resources/posts/{$post}.html";
     if (!file_exists($path)) {
-        ddd("file does not exists: ".$path); // dd stands for die and dump into the page useful for debug
+//        ddd("file does not exists: " . $path); // dd stands for die and dump into the page useful for debug
 //        abort(404);
-//        return redirect("/");
+        return redirect("/");
     }
 
-    $postFile = file_get_contents($path);
+    $postFile = cache()->remember("posts.{post}", now()->addMinutes(20), function () use ($path) {
+        var_dump("file_get_contents"); //this is for debug, to see when the function gets called
+        return file_get_contents($path);
+    });
+    
     return view('post', [
-    'post' => $postFile
+'post' => $postFile
     ]);
 })->where("post", "[A-z_\-]+");
