@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
+use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /*
   |--------------------------------------------------------------------------
@@ -14,23 +16,23 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', function () {
-    return view('posts');
+    $files = File::files(resource_path("posts/"));
+    
+    $posts = array_map(function ($file) {
+        $document = YamlFrontMatter::parseFile($file);
+        return new Post(
+                $document->title, 
+                $document->excerpt,
+                $document->date, 
+                $document->body(),
+                $document->slug);
+    }, $files);
+        
+    return view('posts',["posts" => $posts]);
 });
 
-Route::get('post/{post}', function ($post) {
-    $path = __DIR__ . "/../resources/posts/{$post}.html";
-    if (!file_exists($path)) {
-//        ddd("file does not exists: " . $path); // dd stands for die and dump into the page useful for debug
-//        abort(404);
-        return redirect("/");
-    }
-
-    $postFile = cache()->remember("posts.{post}", now()->addMinutes(20), function () use ($path) {
-        var_dump("file_get_contents"); //this is for debug, to see when the function gets called
-        return file_get_contents($path);
-    });
-    
-    return view('post', [
-'post' => $postFile
+Route::get('post/{slug}', function ($slug) {
+    return view("post", [
+        "post" => Post::find($slug)
     ]);
 })->where("post", "[A-z_\-]+");
