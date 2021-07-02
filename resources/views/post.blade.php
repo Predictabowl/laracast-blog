@@ -1,7 +1,4 @@
-
-@extends("layout")
-
-@section("content")
+<x-layout>
     <article>
         <h1>{{ $post->getTitle(); }}</h1>
         <div>
@@ -10,5 +7,4 @@
         </div>
     </article>
     <a href="/">Go Back</a>
-@endsection
-
+</x-layout>
