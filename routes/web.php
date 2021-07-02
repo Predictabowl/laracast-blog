@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
+// use Illuminate\Support\Facades\DB;
+// use Illuminate\Support\Facades\Log;
 
 /*
   |--------------------------------------------------------------------------
@@ -15,8 +17,13 @@ use App\Models\Category;
   |
  */
 
-Route::get('/',
-    fn () => view('posts', ["posts" => Post::all()]));
+Route::get('/', function(){
+//     DB::listen(function($query){
+//         logger($query->sql, $query->bindin);
+//     });
+
+    return view('posts', ["posts" => Post::with("category")->get()]);
+ });
 
 Route::get('post/{post:slug}', 
     fn(Post $post) => view("post", ["post" => $post]));
