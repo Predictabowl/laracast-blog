@@ -1,4 +1,3 @@
-<?php declare(strict_types=1) ?>
 <!doctype html>
 
 <html>
@@ -10,7 +9,7 @@
         <?php foreach ($posts as $post): ?>
             <article>
                 <h1>
-                    <a href="/posts/<?= $post -> getSlug(); ?>">
+                    <a href="/post/<?= $post -> getSlug(); ?>">
                         <?= $post->getTitle(); ?>
                     </a>
                 </h1>
