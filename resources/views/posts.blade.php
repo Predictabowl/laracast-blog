@@ -3,13 +3,13 @@
         @foreach ($posts as $post)
         <article class="{{$loop->even ? 'foobar' : ''}}">
                 <h1>
-                    <a href="/post/{{ $post -> getSlug(); }}">
-                        {{ $post -> getTitle() }}
+                    <a href="/post/{{ $post -> id }}">
+                        {{ $post -> title }}
                     </a>
                 </h1>
 
                 <div>
-                    {{ $post->getExcerpt(); }}
+                    {{ $post->excerpt }}
                     <br>
                     @if($loop->even)
                         This is even

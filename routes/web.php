@@ -18,8 +18,8 @@ Route::get('/', function () {
      return view('posts', ["posts" => Post::all()]);
 });
 
-Route::get('post/{slug}', function ($slug) {
+Route::get('post/{slug}', function ($id) {
     return view("post", [
-        "post" => Post::findOrFail($slug)
+        "post" => Post::findOrFail($id)
     ]);
 });
