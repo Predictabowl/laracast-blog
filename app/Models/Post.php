@@ -9,10 +9,15 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["title","excerpt","body","slug","category_id"];
+    protected $fillable = ["title","excerpt","body","slug","category_id","user_id"];
 //    protected $guarded = ["id"];
+//    protected $guarded = []; // This means that no field is guarded, so every field can be mass filled
     
     public function category() {
         return $this->belongsTo(Category::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

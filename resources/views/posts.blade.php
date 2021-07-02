@@ -1,5 +1,5 @@
 <x-layout>
-
+    
         @foreach ($posts as $post)
         <article class="{{$loop->even ? 'foobar' : ''}}">
                 <h1>
