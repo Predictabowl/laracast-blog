@@ -53,9 +53,22 @@ class Post {
         return $this->body;
     }
 
+    private static function findPost($slug){
+        return static::all()-> first(fn ($post) => $post->getSlug() === $slug);
+    }
+
     public static function find($slug) {
-        $posts = static::all();
-        return $posts->first(fn($post) => $post->getSlug() === $slug);
+        return static::findPost($slug);
+    }
+
+    public static function findOrFail($slug) {
+        $post = static::findPost($slug);
+
+        if (!$post) {
+            throw new ModelNotFoundException();
+        }
+
+        return $post;
     }
 
     public static function all() {
