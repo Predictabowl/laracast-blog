@@ -1,11 +1,7 @@
-<!doctype html>
 
+@extends("layout")
 
-<head>
-    <title>Post</title>
-    <link rel="stylesheet" href="/css/app.css"/>
-</head>
-<body>
+@section("content")
     <article>
         <h1>{{ $post->getTitle(); }}</h1>
         <div>
@@ -14,5 +10,5 @@
         </div>
     </article>
     <a href="/">Go Back</a>
-</body>
+@endsection
 
