@@ -24,7 +24,7 @@ Route::get('/', function(){
 //         logger($query->sql, $query->bindin);
 //     });
 
-    return view('posts', ["posts" => Post::with("category")->get()]);
+    return view('posts', ["posts" => Post::latest()->with("category")->with("author")->get()]);
  });
 
 Route::get('post/{post:slug}', 
@@ -33,5 +33,5 @@ Route::get('post/{post:slug}',
 Route::get("categories/{category:slug}", 
     fn(Category $category) => view("posts",["posts" => $category->posts]));
 
-Route::get("authors/{user}",
-    fn (User $user) => view("posts",["posts" => $user->posts]));
+Route::get("authors/{author:username}",
+    fn (User $author) => view("posts",["posts" => $author->posts]));
