@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory; //this means that the model have access to the factory method. It's a Facade?
 
     protected $fillable = ["title","excerpt","body","slug","category_id","user_id"];
 //    protected $guarded = ["id"];

@@ -17,52 +17,62 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
+        //truncate is only useful when we don't use the fresh database
         User::truncate();
         Category::truncate();
         Post::truncate();
 
-        $user = User::factory()->create();
-
-        $personal = Category::create([
-            "name" => "Personal",
-            "slug" => "personal"
+        $user = User::factory()->create([
+            "name" => "Mario"
         ]);
 
-        $family = Category::create([
-            "name" => "Family",
-            "slug" => "family"
+        Post::factory(5)->create([
+            "user_id" => $user->id
         ]);
 
-        $work = Category::create([
-            "name" => "Work",
-            "slug" => "work"
-        ]);
+        //$user = User::factory()->create();
 
-        Post::create([
-            "user_id" => $user->id,
-            "category_id" => $family->id,
-            "title" => "My Family Post",
-            "slug" => "my-family-post",
-            "excerpt" => "This is a family excerpt",
-            "body" => "<p>I promessi sposi è un celebre romanzo storico di Alessandro Manzoni, ritenuto il più famoso e il più letto tra quelli scritti in lingua italiana</p>"
-        ]);
 
-        Post::create([
-            "user_id" => $user->id,
-            "category_id" => $work->id,
-            "slug" => "my-work-post",
-            "title" => "My Work Post",
-            "excerpt" => "This is a work excerpt",
-            "body" => "<p>I promessi sposi è un celebre romanzo storico di Alessandro Manzoni, ritenuto il più famoso e il più letto tra quelli scritti in lingua italiana</p>"
-        ]);
+        // $personal = Category::create([
+        //     "name" => "Personal",
+        //     "slug" => "personal"
+        // ]);
 
-        Post::create([
-            "user_id" => $user->id,
-            "category_id" => $personal->id,
-            "slug" => "my-personal-post",
-            "title" => "My Personal  Post",
-            "excerpt" => "This is a personal excerpt",
-            "body" => "<p>I promessi sposi è un celebre romanzo storico di Alessandro Manzoni, ritenuto il più famoso e il più letto tra quelli scritti in lingua italiana</p>"
-        ]);
+        // $family = Category::create([
+        //     "name" => "Family",
+        //     "slug" => "family"
+        // ]);
+
+        // $work = Category::create([
+        //     "name" => "Work",
+        //     "slug" => "work"
+        // ]);
+
+        // Post::create([
+        //     "user_id" => $user->id,
+        //     "category_id" => $family->id,
+        //     "title" => "My Family Post",
+        //     "slug" => "my-family-post",
+        //     "excerpt" => "This is a family excerpt",
+        //     "body" => "<p>I promessi sposi è un celebre romanzo storico di Alessandro Manzoni, ritenuto il più famoso e il più letto tra quelli scritti in lingua italiana</p>"
+        // ]);
+
+        // Post::create([
+        //     "user_id" => $user->id,
+        //     "category_id" => $work->id,
+        //     "slug" => "my-work-post",
+        //     "title" => "My Work Post",
+        //     "excerpt" => "This is a work excerpt",
+        //     "body" => "<p>I promessi sposi è un celebre romanzo storico di Alessandro Manzoni, ritenuto il più famoso e il più letto tra quelli scritti in lingua italiana</p>"
+        // ]);
+
+        // Post::create([
+        //     "user_id" => $user->id,
+        //     "category_id" => $personal->id,
+        //     "slug" => "my-personal-post",
+        //     "title" => "My Personal  Post",
+        //     "excerpt" => "This is a personal excerpt",
+        //     "body" => "<p>I promessi sposi è un celebre romanzo storico di Alessandro Manzoni, ritenuto il più famoso e il più letto tra quelli scritti in lingua italiana</p>"
+        // ]);
     }
 }
