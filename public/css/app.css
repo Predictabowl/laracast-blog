@@ -1,0 +1,31 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jul 1, 2021, 6:45:45 PM
+    Author     : piero
+*/
+
+body{
+    background: white;
+    color: #222222;
+    max-width: 600px;
+    margin: auto;
+    font-family: sans-serif;
+}
+
+p{
+     line-height: 1.6;
+}
+
+/*
++ article to apply to every article that come after the first
+*/
+article + article {
+    margin-top: 3rem; /*Rem is distanca based on font size*/
+    padding-top: 3rem;
+    border-top: 1px solid gray;
+}
+
