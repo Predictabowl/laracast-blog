@@ -19,19 +19,23 @@ use App\Models\User;
   |
  */
 
-Route::get('/', function(){
+  Route::get('/', function(){
 //     DB::listen(function($query){
 //         logger($query->sql, $query->bindin);
 //     });
 
     return view('posts', ["posts" => Post::latest()->with("category")->with("author")->get()]);
- });
+});
 
-Route::get('post/{post:slug}', 
+  Route::get('post/{post:slug}', 
     fn(Post $post) => view("post", ["post" => $post]));
 
-Route::get("categories/{category:slug}", 
-    fn(Category $category) => view("posts",["posts" => $category->posts]));
+  Route::get("categories/{category:slug}", 
+    fn(Category $category) => view("posts",[
+        "posts" => $category->posts->load(["category","author"])
+    ]));
 
-Route::get("authors/{author:username}",
-    fn (User $author) => view("posts",["posts" => $author->posts]));
+  Route::get("authors/{author:username}",
+    fn (User $author) => view("posts",[
+        "posts" => $author->posts->load(["category","author"])
+    ]));

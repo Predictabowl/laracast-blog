@@ -13,6 +13,15 @@ class Post extends Model
 //    protected $guarded = ["id"];
 //    protected $guarded = []; // This means that no field is guarded, so every field can be mass filled
     
+     /* The following is for eager loading, 
+        if it's set like that it will ALWAYS eager load.
+        If you only need eager load in specific situation is better to use
+        'load' and 'with' when doing queries.
+        None the less it can be disabled using 'without(["author","category"])' in the query.
+        The better solution is to create a repository for working with entities.
+     */
+//    protected $with = ["author","category"];
+
     public function category() {
         return $this->belongsTo(Category::class);
     }
