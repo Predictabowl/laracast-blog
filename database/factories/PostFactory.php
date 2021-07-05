@@ -26,7 +26,7 @@ class PostFactory extends Factory
         return [
             "title"=> $this->faker->sentence(),
             "excerpt" => collect($this->faker->paragraphs(2))->map(fn($item)=>"<p>".$item."</p>")->implode(""),
-            "body"=> collect($this->faker->paragraphs(8))->map(fn($item)=>"<p>".$item."</p>")->implode(""),
+            "body"=> collect($this->faker->paragraphs(6))->map(fn($item)=>"<p>".$item."</p>")->implode(""),
             "user_id" => User::factory(),
             "category_id" => Category::factory(),
             "slug" => $this->faker->slug()
