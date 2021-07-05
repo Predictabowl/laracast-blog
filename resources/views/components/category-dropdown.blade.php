@@ -13,7 +13,8 @@
     <x-dropdown-item href="/" :isActive="!isset($currentCategory)"> All </x-dropdown-item>
     @foreach($categories as $category)
         <x-dropdown-item :isActive="isset($currentCategory) && $currentCategory->is($category)"
-            href="/?category={{$category->slug}}">
+            href="/?{{http_build_query(array_replace(request()->input(), ['category' => $category->slug]))}}">
+            {{-- href="/?category={{ $category->slug }}&{{ http_build_query(request()->except('category')) }}"> --}}
             {{ucwords($category->name)}}
         </x-dropdown-item> 
     @endforeach

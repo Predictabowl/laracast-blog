@@ -32,6 +32,11 @@ class Post extends Model
         return $this->belongsTo(User::class, "user_id");
     }
 
+    /*
+        Why filter query logic should be inside the model class? It makes no sense.
+        Where are the repositories?
+    */
+
     // The name must be "scope<methodName>" so it can be called
     // with Post::newQuery()->methodName()
     public function scopeFilter($query, array $filters)
