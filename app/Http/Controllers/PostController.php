@@ -23,15 +23,13 @@ class PostController extends Controller
         $post = Post::latest()->with(["category","author"])
             ->filter(request(["search","category"]))->get(); 
 
-        return view('posts', [
-            "posts" => $post,
-            "categories" => Category::all(),
-            "currentCategory" => Category::firstWhere("slug",request("category"))
+        return view('posts.showAll', [
+            "posts" => $post
         ]);
     }
 
     public function show(Post $post)
     {
-        return view("post", ["post" => $post]);
+        return view("posts.show", ["post" => $post]);
     }
 }

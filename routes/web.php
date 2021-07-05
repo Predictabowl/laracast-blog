@@ -22,7 +22,7 @@ use App\Models\User;
 
   Route::get('/', [PostController::class,"showAll"])->name("homePage");
 
-  Route::get('post/{post:slug}',[PostController::class,"show"]);
+  Route::get('post/{post:slug}', [PostController::class,"show"]);
 
 /*  Route::get(
       "categories/{category:slug}",
@@ -36,7 +36,6 @@ use App\Models\User;
   Route::get(
       "authors/{author:username}",
       fn (User $author) => view("posts", [
-        "posts" => $author->posts->load(["category","author"]),
-        "categories" => Category::all()
+        "posts" => $author->posts->load(["category","author"])
     ])
   );
