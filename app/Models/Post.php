@@ -52,5 +52,10 @@ class Post extends Model
             $query->whereHas("category", 
                 fn($query) => $query->where("slug",request("category")));
         }
+
+        if(isset($filters["author"])){
+            $query->whereHas("author", 
+                fn($query) => $query->where("username",request("author")));
+        }
     }
 }

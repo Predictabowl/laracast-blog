@@ -33,9 +33,9 @@ use App\Models\User;
     ])
   )->name("categoryRoute");*/
 
-  Route::get(
+/*  Route::get(
       "authors/{author:username}",
-      fn (User $author) => view("posts", [
+      fn (User $author) => view("posts.showAll", [
         "posts" => $author->posts->load(["category","author"])
     ])
-  );
+  );*/
