@@ -47,5 +47,10 @@ class Post extends Model
         }
         // there's no need to return, because it buold over the query
         // I guess is all inside the Laravel framework, but it's a very confusing choice
+
+        if(isset($filters["category"])){
+            $query->whereHas("category", 
+                fn($query) => $query->where("slug",request("category")));
+        }
     }
 }

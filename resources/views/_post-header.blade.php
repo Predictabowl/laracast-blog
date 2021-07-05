@@ -20,10 +20,12 @@
                         </button>
                     </x-slot>
 
-                    <x-dropdown-item href="/" :isActive="request()->routeIs('homePage')"> All </x-dropdown-item>
+                    {{-- The following won't work anymore because because the route will now always be the homePage --}}
+                    {{-- <x-dropdown-item href="/" :isActive="request()->routeIs('homePage')"> All </x-dropdown-item> --}}
+                    <x-dropdown-item href="/" :isActive="!isset($currentCategory)"> All </x-dropdown-item>
                     @foreach($categories as $category)
                         <x-dropdown-item :isActive="isset($currentCategory) && $currentCategory->is($category)"
-                            href="/categories/{{$category->slug}}">
+                            href="/?category={{$category->slug}}">
                             {{ucwords($category->name)}}
                         </x-dropdown-item>
                     @endforeach
