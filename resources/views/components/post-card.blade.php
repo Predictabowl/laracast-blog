@@ -26,10 +26,11 @@
             </div>
         </header>
 
-        <div class="text-sm mt-4">
-            <p>
-                {{ $post->excerpt }}
-            </p>
+        {{-- space-y-4 is a tailwind specification that add space 4 between every child of this component
+            This is not good for a professional blog, as it should define
+            a special paragraph class for user contents --}}
+        <div class="text-sm mt-4 space-y-4">
+            {!! $post->excerpt !!}
         </div>
 
         <footer class="flex justify-between items-center mt-8">
