@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
@@ -19,37 +20,9 @@ use App\Models\User;
   |
  */
 
-  Route::get('/', function () {
-      /* lazy loading here will result in additional queries for every post
-        because the relationships are needed.
-        Use clockwork or listen to the DB to see the number of queries
-      */
+  Route::get('/', [PostController::class,"showAll"])->name("homePage");
 
-//     DB::listen(function($query){
-//         logger($query->sql, $query->bindin);
-//     });
-
-      $post = Post::latest()->with(["category","author"]); //with and get are used for eager loading references
-
-      if (request("search")) {
-          /* This is a standard SQL query, equivalent to
-            |select * from posts
-            |where title like "%request("search")%";
-            remember the % are wildcards
-          */
-          $post->where("title", "like", "%".request("search")."%")
-          ->orWhere("body", "like", "%".request("search")."%");
-      }
-
-      return view('posts', [
-      "posts" => $post->get(),
-      "categories" => Category::all()]);
-  })->name("homePage");
-
-  Route::get(
-      'post/{post:slug}',
-      fn (Post $post) => view("post", ["post" => $post])
-  );
+  Route::get('post/{post:slug}',[PostController::class,"show"]);
 
   Route::get(
       "categories/{category:slug}",

@@ -31,4 +31,21 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, "user_id");
     }
+
+    // The name must be "scope<methodName>" so it can be called
+    // with Post::newQuery()->methodName()
+    public function scopeFilter($query, array $filters)
+    {
+
+        if (isset($filters["search"])) {
+            //This is a standard SQL query, equivalent to
+            //|select * from posts
+            //|where title like "%request("search")%";
+            //remember the % are wildcards
+            $query ->where("title", "like", "%".request("search")."%")
+                ->orWhere("body", "like", "%".request("search")."%");
+        }
+        // there's no need to return, because it buold over the query
+        // I guess is all inside the Laravel framework, but it's a very confusing choice
+    }
 }
