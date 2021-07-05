@@ -8,8 +8,7 @@
         @else
             <p class="text-center">No posts yet.</p>
         @endif
-
-</main>
+    </main>
 
 {{--         @foreach ($posts as $post)
         <article class="{{$loop->even ? 'foobar' : ''}}">
@@ -36,4 +35,4 @@
             </article>
             @endforeach --}}
 
-        </x-layout>
+</x-layout>

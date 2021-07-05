@@ -24,7 +24,9 @@ use App\Models\User;
 //         logger($query->sql, $query->bindin);
 //     });
 
-    return view('posts', ["posts" => Post::latest()->with("category")->with("author")->get()]);
+    return view('posts', [
+      "posts" => Post::latest()->with("category")->with("author")->get(), //with and get are used for eager loading references
+      "categories" => Category::all()]);
 });
 
   Route::get('post/{post:slug}', 
@@ -32,10 +34,13 @@ use App\Models\User;
 
   Route::get("categories/{category:slug}", 
     fn(Category $category) => view("posts",[
-        "posts" => $category->posts->load(["category","author"])
+        "posts" => $category->posts->load(["category","author"]), // the function load is used for eager loading of DB references
+        "currentCategory" => $category,
+        "categories" => Category::all()
     ]));
 
   Route::get("authors/{author:username}",
     fn (User $author) => view("posts",[
-        "posts" => $author->posts->load(["category","author"])
+        "posts" => $author->posts->load(["category","author"]),
+        "categories" => Category::all()
     ]));
