@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Post;
 use App\Models\Category;
@@ -19,23 +20,23 @@ use App\Models\User;
   |
  */
 
-  Route::get('/', function(){
-//     DB::listen(function($query){
-//         logger($query->sql, $query->bindin);
-//     });
+  Route::get('/', [PostController::class,"showAll"])->name("homePage");
 
-    return view('posts', ["posts" => Post::latest()->with("category")->with("author")->get()]);
-});
+  Route::get('post/{post:slug}',[PostController::class,"show"]);
 
-  Route::get('post/{post:slug}', 
-    fn(Post $post) => view("post", ["post" => $post]));
+  Route::get(
+      "categories/{category:slug}",
+      fn (Category $category) => view("posts", [
+        "posts" => $category->posts->load(["category","author"]), // the function load is used for eager loading of DB references
+        "currentCategory" => $category,
+        "categories" => Category::all()
+    ])
+  )->name("categoryRoute");
 
-  Route::get("categories/{category:slug}", 
-    fn(Category $category) => view("posts",[
-        "posts" => $category->posts->load(["category","author"])
-    ]));
-
-  Route::get("authors/{author:username}",
-    fn (User $author) => view("posts",[
-        "posts" => $author->posts->load(["category","author"])
-    ]));
+  Route::get(
+      "authors/{author:username}",
+      fn (User $author) => view("posts", [
+        "posts" => $author->posts->load(["category","author"]),
+        "categories" => Category::all()
+    ])
+  );
