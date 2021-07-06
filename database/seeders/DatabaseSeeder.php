@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -18,11 +19,13 @@ class DatabaseSeeder extends Seeder
     {
 
         //truncate is only useful when we don't use the fresh database
-        User::truncate();
-        Category::truncate();
-        Post::truncate();
+        //User::truncate();
+        //Category::truncate();
+        //Post::truncate();
 
-        $user = User::factory()->create([
+        Comment::factory(2)->create();
+
+/*        $user = User::factory()->create([
             "name" => "Mario"
         ]);
 
@@ -41,7 +44,9 @@ class DatabaseSeeder extends Seeder
             "category_id" => $category->id
         ]);
 
-        Category::factory(20)->create();
+        Category::factory(20)->create();*/
+
+
 
         //$user = User::factory()->create();
 

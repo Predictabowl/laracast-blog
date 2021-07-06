@@ -32,6 +32,11 @@ class Post extends Model
         return $this->belongsTo(User::class, "user_id");
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     /*
         Why filter query logic should be inside the model class? It makes no sense.
         Where are the repositories?
