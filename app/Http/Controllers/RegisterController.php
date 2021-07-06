@@ -30,6 +30,9 @@ class RegisterController extends Controller
         //$attributes["password"] = bcrypt($attributes["password"]); // we use a Mutator in User.php instead
         User::create($attributes);
         //return redirect("/");
-        return redirect()->route("homePage");
+
+        //session()->flash("success","Il tuo account è stato creato."); // inline below
+
+        return redirect()->route("homePage")->with("success","Il tuo account è stato creato.");
     }
 }
