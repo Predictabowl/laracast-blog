@@ -32,20 +32,41 @@ class Post extends Model
         return $this->belongsTo(User::class, "user_id");
     }
 
+    /*
+        Why filter query logic should be inside the model class? It makes no sense.
+        Where are the repositories?
+    */
+
     // The name must be "scope<methodName>" so it can be called
     // with Post::newQuery()->methodName()
     public function scopeFilter($query, array $filters)
     {
-
         if (isset($filters["search"])) {
             //This is a standard SQL query, equivalent to
             //|select * from posts
             //|where title like "%request("search")%";
             //remember the % are wildcards
-            $query ->where("title", "like", "%".request("search")."%")
-                ->orWhere("body", "like", "%".request("search")."%");
+            //we use a function to group these 2 queries in a isngle statement,
+            //otherwise the last part will chain with next queries
+            $query ->where(fn ($query) => $query
+                    ->where("title", "like", "%".request("search")."%")
+                    ->orWhere("body", "like", "%".request("search")."%"));
         }
         // there's no need to return, because it buold over the query
         // I guess is all inside the Laravel framework, but it's a very confusing choice
+
+        if (isset($filters["category"])) {
+            $query->whereHas(
+                "category",
+                fn ($query) => $query->where("slug", request("category"))
+            );
+        }
+
+        if (isset($filters["author"])) {
+            $query->whereHas(
+                "author",
+                fn ($query) => $query->where("username", request("author"))
+            );
+        }
     }
 }

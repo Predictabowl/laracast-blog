@@ -22,21 +22,20 @@ use App\Models\User;
 
   Route::get('/', [PostController::class,"showAll"])->name("homePage");
 
-  Route::get('post/{post:slug}',[PostController::class,"show"]);
+  Route::get('post/{post:slug}', [PostController::class,"show"]);
 
-  Route::get(
+/*  Route::get(
       "categories/{category:slug}",
       fn (Category $category) => view("posts", [
         "posts" => $category->posts->load(["category","author"]), // the function load is used for eager loading of DB references
         "currentCategory" => $category,
         "categories" => Category::all()
     ])
-  )->name("categoryRoute");
+  )->name("categoryRoute");*/
 
-  Route::get(
+/*  Route::get(
       "authors/{author:username}",
-      fn (User $author) => view("posts", [
-        "posts" => $author->posts->load(["category","author"]),
-        "categories" => Category::all()
+      fn (User $author) => view("posts.showAll", [
+        "posts" => $author->posts->load(["category","author"])
     ])
-  );
+  );*/
