@@ -3,6 +3,7 @@
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\PostCommentsController;
 use Illuminate\Support\Facades\Route;
 //use App\Models\Post;
 //use App\Models\Category;
@@ -22,9 +23,13 @@ use Illuminate\Support\Facades\Route;
   |
  */
 
+  //RESTFUL actions (7): index. show, create, store, edit, update, destroy
+
   Route::get('/', [PostController::class,"showAll"])->name("homePage");
 
   Route::get('post/{post:slug}', [PostController::class,"show"]);
+
+  Route::post('post/{post:slug}/comments', [PostCommentsController::class,"store"]);
 
   Route::get("register",[RegisterController::class,"create"])->middleware("guest");
 
