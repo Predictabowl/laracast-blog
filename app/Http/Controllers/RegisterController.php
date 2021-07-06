@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class RegisterController extends Controller
 {
@@ -16,8 +17,9 @@ class RegisterController extends Controller
     {
         $attributes = request()->validate([
             "name" => ["required","max:255"], 
-            "username" => "required|max:255|min:3",//alternative way with pipes instead of arrays
-            "email" => ["required","email", "max:255"],
+            //"username" => ["required","max:255","min:3","unique:users,username"], //alternative
+            "username" => ["required","max:255","min:3",Rule::unique("users","username")],
+            "email" => ["required","email", "max:255", Rule::unique("users","email")],
             "password" => ["required", "min:7"]
         ]);
         /*
