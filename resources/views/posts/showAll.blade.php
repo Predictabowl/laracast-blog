@@ -5,6 +5,11 @@
     <main class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6">
         @if ($posts->count())
             <x-posts-grid :posts="$posts"/>
+            {{-- links is a method for query results of Laravel.
+                it automatically create the pages link given that
+                the pagination query result was used.
+                It also styles them automatically if Tailwind is used --}}
+            {{ $posts->links() }}
         @else
             <p class="text-center">No posts yet.</p>
         @endif

@@ -21,7 +21,7 @@ class PostController extends Controller
 
         //with and get are used for eager loading references
         $post = Post::latest()->with(["category","author"])
-            ->filter(request(["search","category","author"]))->get(); 
+            ->filter(request(["search","category","author"]))->paginate(6)->withQueryString(); 
 
         return view('posts.showAll', [
             "posts" => $post
