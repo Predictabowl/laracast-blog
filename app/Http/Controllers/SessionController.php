@@ -28,19 +28,19 @@ class SessionController extends Controller
         ]);
 
         // attempt to authenticate and log in the user
-        if (Auth::attempt($attributes)){
-            // redirect and flash a message
-            session()->regenerate(); // This is to prevent a Session fixation attack
-            return redirect()->route("homePage")->with("success","Bentornato!");
+        if (!Auth::attempt($attributes)){
+            // auth failed - standard way
+            // return back()
+            //     ->withInput() // this will keep the fields
+            //     ->withErrors(["email" => "Le credenziali fornite non sono valide."]);
+
+            //auth fail alternative laravel way
+            throw ValidationException::withMessages(["email" => "Le credenziali fornite non sono valide."]);
         }
 
-        // auth failed - standard way
-        // return back()
-        //     ->withInput() // this will keep the fields
-        //     ->withErrors(["email" => "Le credenziali fornite non sono valide."]);
-
-        //auth fail alternative laravel way
-        throw ValidationException::withMessages(["email" => "Le credenziali fornite non sono valide."]);
+        // redirect and flash a message
+        session()->regenerate(); // This is to prevent a Session fixation attack
+        return redirect()->route("homePage")->with("success","Bentornato!");
 
     }
 }
