@@ -16,11 +16,12 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    // protected $fillable = [
+    //     'name',
+    //     'email',
+    //     'password',
+    // ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -45,4 +46,20 @@ class User extends Authenticatable
     public function posts(){
         return $this->hasMany(Post::class);
     }
+
+    /**
+     * This is an Eloquent Mutator, is called automatically 
+     * every time the field ("Password" in this case) is se
+     * The function name must follow Eloquent Syntax
+     * set<attribute name>Attribute
+    */
+    public function setPasswordAttribute ($password)
+    {
+        $this->attributes["password"] = bcrypt($password);
+    }
+
+    /**
+     * There's also Eloquent accessor which follow the syntax
+     * get<attribute name>Attribute
+    */
 }
