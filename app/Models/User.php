@@ -46,4 +46,20 @@ class User extends Authenticatable
     public function posts(){
         return $this->hasMany(Post::class);
     }
+
+    /**
+     * This is an Eloquent Mutator, is called automatically 
+     * every time the field ("Password" in this case) is se
+     * The function name must follow Eloquent Syntax
+     * set<attribute name>Attribute
+    */
+    public function setPasswordAttribute ($password)
+    {
+        $this->attributes["password"] = bcrypt($password);
+    }
+
+    /**
+     * There's also Eloquent accessor which follow the syntax
+     * get<attribute name>Attribute
+    */
 }

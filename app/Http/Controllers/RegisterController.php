@@ -25,6 +25,7 @@ class RegisterController extends Controller
             and any code below this will be ignored
         */
         //dd("validation succeeded");
+        //$attributes["password"] = bcrypt($attributes["password"]); // we use a Mutator in User.php instead
         User::create($attributes);
         //return redirect("/");
         return redirect()->route("homePage");
