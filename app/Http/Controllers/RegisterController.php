@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class RegisterController extends Controller
@@ -28,11 +29,14 @@ class RegisterController extends Controller
         */
         //dd("validation succeeded");
         //$attributes["password"] = bcrypt($attributes["password"]); // we use a Mutator in User.php instead
-        User::create($attributes);
-        //return redirect("/");
+        $user = User::create($attributes);
 
+        //auth()->login($user);
+        Auth::login($user);
+        
         //session()->flash("success","Il tuo account è stato creato."); // inline below
 
         return redirect()->route("homePage")->with("success","Il tuo account è stato creato.");
+        //return redirect("/");
     }
 }
